@@ -27,7 +27,7 @@ int main() {
     .sin_addr = { htonl(INADDR_ANY) },
   };
 
-  if (bind(server_fd, (struct sockaddr *) &serv_addr, sizeof(serv_addr0)) != 0) {
+  if (bind(server_fd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) != 0) {
     printf("Bind failed: %s \n", strerror(errno));
     return 1;
   }
