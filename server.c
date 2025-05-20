@@ -31,5 +31,5 @@ int main() {
     printf("Bind failed: %s \n", strerror(errno));
     return 1;
   }
-  printf("bind successful\n");
+  printf("Bind successful\n");
 }
