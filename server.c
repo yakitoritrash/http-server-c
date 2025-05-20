@@ -7,9 +7,13 @@ int main() {
   int server_fd = socket(AF_INET, SOCK_STREAM, 0); 
   if (server_fd < 0) {
     perror("Socket creation failed.\n");
+    return 1;
   }
   printf("Socket created.\n");
-  
-  struct sockaddr_in client_addr;
 
+  struct sockaddr_in client_addr;
+  int reuse = 1;
+  if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
+
+  }
 }
