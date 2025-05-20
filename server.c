@@ -2,6 +2,7 @@
 #include <sys/socket.h>
 #include <errno.h>
 #include <netinet/in.h>
+#include <string.h>
 
 int main() {
   int server_fd = socket(AF_INET, SOCK_STREAM, 0); 
@@ -14,6 +15,7 @@ int main() {
   struct sockaddr_in client_addr;
   int reuse = 1;
   if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
-
+    printf("SO_REUSEADDR failed: %s \n", strerror(errno));
+    return 1;
   }
 }
