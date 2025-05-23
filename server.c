@@ -34,7 +34,7 @@ int main() {
   printf("Bind successful\n");
   
   int backlog = 5; 
-  if (listen(server_fd, backlog) {
+  if (listen(server_fd, backlog) != 0) {
 
   } 
 }
