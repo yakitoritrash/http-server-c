@@ -32,5 +32,9 @@ int main() {
     return 1;
   }
   printf("Bind successful\n");
-  if (listen(server_fd, 
+  
+  int backlog = 5; 
+  if (listen(server_fd, backlog) {
+
+  } 
 }
