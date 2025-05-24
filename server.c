@@ -43,7 +43,7 @@ int main() {
   printf("Waiting for a client to connect...\n");
   client_addr_len = sizeof(client_addr);
 
-  int fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_addr_len);
+  int fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *)&client_addr_len);
   printf("Client accepted\n");
   close(server_fd);
   return 0;
