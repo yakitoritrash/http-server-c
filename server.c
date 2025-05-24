@@ -40,11 +40,13 @@ int main() {
     return 1;
   }
 
-  printf("Waiting for a client to connect...\n");
-  client_addr_len = sizeof(client_addr);
+  while(1) {
+    printf("Waiting for a client to connect...\n");
+    client_addr_len = sizeof(client_addr);
+    int fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *)&client_addr_len);
+    printf("Client accepted\n");
+  }
 
-  int fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *)&client_addr_len);
-  printf("Client accepted\n");
   close(server_fd);
   return 0;
 }
