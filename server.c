@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 int main() {
+  int client_addr_len;
   int server_fd = socket(AF_INET, SOCK_STREAM, 0); 
   if (server_fd < 0) {
     perror("Socket creation failed.\n");
@@ -35,6 +36,15 @@ int main() {
   
   int backlog = 5; 
   if (listen(server_fd, backlog) != 0) {
-    printf
-  } 
+    printf("Listen failed.\n");
+    return 1;
+  }
+
+  printf("Waiting for a client to connect...\n");
+  client_addr_len = sizeof(client_addr);
+
+  int fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_addr_len);
+  printf("Client accepted\n");
+  close(server_fd);
+  return 0;
 }
