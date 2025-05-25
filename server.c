@@ -50,7 +50,7 @@ int main() {
     int fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *)&client_addr_len);
     printf("Client accepted\n");
     read(fd, client_request, 128);
-    if (memcmp(client_request, "GET", 5) == 0) {
+    if (memcmp(client_request, "GET", 4) == 0) {
       write(fd, server_response, strlen(server_response));
       printf("200 OK.\n");
     } else {
