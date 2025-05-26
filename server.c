@@ -9,8 +9,8 @@
 int main() {
   int client_addr_len;
   struct sockaddr_in client_addr;
-  char server_response[] = "HTTP/1.1 200 OK\r\n\r\n";
-  char server_denial[] = "HTTP/1.1 404 Not found\r\n\r\n";
+  char server_response[] = "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n";
+  char server_denial[] = "HTTP/1.1 404 Not found\r\nContent-Length: 0\r\n\r\n";
   char client_request[129];
 
   int server_fd = socket(AF_INET, SOCK_STREAM, 0); 
