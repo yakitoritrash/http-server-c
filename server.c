@@ -54,7 +54,7 @@ int main() {
       close(fd);
       continue;
     }
-    if (memcmp(client_request, "GET", 3) == 0) {
+    if (memcmp(client_request, "GET / ", 6) == 0) {
       write(fd, server_response, strlen(server_response));
       printf("200 OK.\n");
     } else {
