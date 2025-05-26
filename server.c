@@ -11,7 +11,7 @@ int main() {
   struct sockaddr_in client_addr;
   char server_response[] = "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n";
   char server_denial[] = "HTTP/1.1 404 Not found\r\nContent-Length: 0\r\n\r\n";
-  char client_request[129];
+  char client_request[129] = {0};
 
   int server_fd = socket(AF_INET, SOCK_STREAM, 0); 
   if (server_fd < 0) {
@@ -49,14 +49,19 @@ int main() {
     client_addr_len = sizeof(client_addr);
     int fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *)&client_addr_len);
     printf("Client accepted\n");
-    read(fd, client_request, 128);
-    if (memcmp(client_request, "GET", 3) == 0) {
-        write(fd, server_response, strlen(server_response));
-        printf("200 OK.\n");
-      } else {
-        write(fd, server_denial, strlen(server_denial));
-        printf("404 Not Found.\n");
+    int bytes_read = read(fd, client_request, 128);
+    if (bytes_read <= 0) {
+      close(fd);
+      continue;
     }
+    if (memcmp(client_request, "GET", 3) == 0) {
+      write(fd, server_response, strlen(server_response));
+      printf("200 OK.\n");
+    } else {
+      write(fd, server_denial, strlen(server_denial));
+      printf("404 Not Found.\n");
+    }
+    close(fd);
   }
 
   close(server_fd);
