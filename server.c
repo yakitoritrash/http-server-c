@@ -51,11 +51,13 @@ int main() {
     printf("Client accepted\n");
     read(fd, client_request, 128);
     if (memcmp(client_request, "GET", 3) == 0) {
-      write(fd, server_response, strlen(server_response));
-      printf("200 OK.\n");
-    } else {
-      write(fd, server_denial, strlen(server_denial));
-      printf("404 Not Found.\n");
+      if (memcmp(client_request, "GET", 6) == 0) {
+        write(fd, server_response, strlen(server_response));
+        printf("200 OK.\n");
+      } else {
+        write(fd, server_denial, strlen(server_denial));
+        printf("404 Not Found.\n");
+      }
     }
   }
 
