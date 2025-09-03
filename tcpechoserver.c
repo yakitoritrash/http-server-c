@@ -1,3 +1,4 @@
+#include <asm-generic/socket.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -24,6 +25,13 @@ int main() {
   if (server_fd < 0) {
     perror("Socket creation failed.\n");
   }
+
+  //set socket options for reuse;
+  int opt = 1;
+  if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
+    perror("setsockopt");
+    exit(EXIT_FAILURE);
+  }
   //defining the address
   struct sockaddr_in SOCK_ADDR;
   SOCK_ADDR.sin_family = AF_INET;
@@ -33,6 +41,7 @@ int main() {
   //binding the address to teh socket
   if (bind(server_fd, (struct sockaddr *)&SOCK_ADDR, sizeof(SOCK_ADDR)) != 0) {
     perror("Bind failed\n");
+    exit(EXIT_FAILURE);
   } 
   printf("Binded\n");
 
