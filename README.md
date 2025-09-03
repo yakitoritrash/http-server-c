@@ -30,7 +30,7 @@ cd http-server-c
 Compile:
 
 ```sh
-gcc -o http-server main.c
+gcc -o tcpechoserver tcpechoserver.c
 ```
 
 You may need to adjust the above command if you have multiple source files or need additional flags (e.g., `-lpthread`).
@@ -54,8 +54,7 @@ Then visit `http://localhost:8080` in your web browser.
 
 ## Project Structure
 
-- `main.c` — main server file
-- (Add more files here as appropriate, e.g., `http.c`, `utils.c`, etc.)
+- `tcpechoserver.c` — main server file
 
 ## Usage
 
