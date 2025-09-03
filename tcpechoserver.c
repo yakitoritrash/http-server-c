@@ -53,11 +53,20 @@ int main() {
   struct sockaddr CLIENT_ADDR;
   socklen_t client_addr_len = sizeof(CLIENT_ADDR);
   while (1) {
-  int client_fd = accept(server_fd, &CLIENT_ADDR, &client_addr_len); 
-  char buffer[1024];
-  ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
-  write(client_fd, buffer, bytes_read);
-  close(client_fd);
+    int client_fd = accept(server_fd, &CLIENT_ADDR, &client_addr_len); 
+    int pid = fork();
+    if (pid == 0) {
+      char buffer[1024];
+      ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
+      printf("--- Browser Request ---\n%s\n", buffer);
+      write(client_fd, buffer, bytes_read);
+      close(client_fd);
+      exit(0);
+    } else if (pid > 0) {
+      close(client_fd);
+    } else {
+      perror("Fork failed.\n");
+    }
   }
   close(server_fd);
 }
