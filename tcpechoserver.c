@@ -59,7 +59,14 @@ int main() {
       char buffer[1024];
       ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
       printf("--- Browser Request ---\n%s\n", buffer);
-      write(client_fd, buffer, bytes_read);
+      char *http_response = 
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/html\r\n"
+        "Content-Length: 45\r\n"
+        "\r\n"
+        "<h1>Hello from c server</h1>";
+      //write(client_fd, buffer, bytes_read);
+      write(client_fd, http_response, strlen(http_response));
       close(client_fd);
       exit(0);
     } else if (pid > 0) {
