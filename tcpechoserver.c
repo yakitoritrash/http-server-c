@@ -45,8 +45,8 @@ int main() {
   socklen_t client_addr_len = sizeof(CLIENT_ADDR);
   int client_fd = accept(server_fd, &CLIENT_ADDR, &client_addr_len); 
   char buffer[1024];
-  ssize_t bytes_read = read(client_fd, buffer, sizeof(bytes_read));
-  write(client_fd, buffer, sizeof(bytes_read));
+  ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
+  write(client_fd, buffer, bytes_read);
   close(client_fd);
   close(server_fd);
 }
